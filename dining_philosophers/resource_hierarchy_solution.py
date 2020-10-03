@@ -10,7 +10,7 @@ def philosopher(left, right):
     while True:
         with first:
             with second:
-                print('Philosopher with number {} is eating.'.format(threading.currentThread()))
+                print('Philosopher with number {} is eating.'.format(threading.currentThread().name))
 
 
 fork_number = 5
