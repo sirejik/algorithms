@@ -25,23 +25,22 @@ class Graph:
         node2.set_neighbor_distance(node1, distance)
 
 
-def dijkstra(start_node):
+def dijkstra(start_node, end_node=None):
     ways = {}
     seen_nodes = []
     current_node = start_node
     ways[current_node] = ([current_node], 0)
     while True:
+        if end_node == current_node:
+            return ways[current_node]
+
         current_way, current_distance = ways[current_node]
-        next_node, next_node_distance = None, math.inf
         for node in current_node.neighbor_distance.keys():
             if node in seen_nodes:
                 continue
 
             node_distance = current_node.neighbor_distance[node]
             new_distance = current_distance + node_distance
-
-            if next_node_distance > node_distance:
-                next_node, next_node_distance = node, node_distance
 
             if node in ways:
                 way, distance = ways[node]
@@ -51,7 +50,21 @@ def dijkstra(start_node):
                 ways[node] = current_way + [node], new_distance
 
         seen_nodes.append(current_node)
+
+        next_node, next_node_distance = None, math.inf
+        for node, (_, distance) in ways.items():
+            if node in seen_nodes:
+                continue
+
+            if next_node_distance > distance:
+                next_node, next_node_distance = node, distance
+
         if len(Graph.nodes) <= len(seen_nodes) or next_node is None:
+            if end_node is not None:
+                raise Exception('The way from {} to {} does not exist.'.format(
+                    str(start_node.name), str(end_node.name)
+                ))
+
             return ways
 
         current_node = next_node
@@ -72,11 +85,18 @@ def init_graph():
         Graph.add_edge(name1, name2, distance)
 
 
-def print_result(ways):
+def print_results(ways):
     for way, distance in ways.values():
-        print('-'.join([str(x.name) for x in way]) + ' = ' + str(distance))
+        print_result(way, distance)
+
+
+def print_result(way, distance):
+    print('-'.join([str(x.name) for x in way]) + ' = ' + str(distance))
 
 
 init_graph()
 result = dijkstra(Graph.get_node(1))
-print_result(result)
+print_results(result)
+
+result = dijkstra(Graph.get_node(1), Graph.get_node(5))
+print_result(*result)
