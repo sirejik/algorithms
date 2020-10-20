@@ -1,3 +1,9 @@
+"""
+Description: The sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if
+they are in the wrong order.
+
+Average complexity: O(n^2).
+"""
 import random
 
 

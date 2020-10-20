@@ -1,3 +1,7 @@
+"""
+Description: it is a metaheuristic to approximate global optimization in a large search space for an optimization
+problem.
+"""
 import math
 import random
 

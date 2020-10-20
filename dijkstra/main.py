@@ -1,3 +1,8 @@
+"""
+Description: The algorithm for finding the shortest paths between nodes in a graph.
+
+Average complexity: O(n^2).
+"""
 import math
 
 

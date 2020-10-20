@@ -1,3 +1,10 @@
+"""
+Problem statement: Some threads may read and some may write, with the constraint that no thread may access the shared
+resource for either reading or writing while another thread is in the act of writing to it.
+
+Problem: No thread shall be allowed to starve; that is, the operation of obtaining a lock on the shared data will always
+terminate in a bounded amount of time.
+"""
 import threading
 
 from time import sleep
